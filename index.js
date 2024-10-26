@@ -15,7 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 const corsOrigin={
-    origin:process.env.FRONT_END_URL,
+    origin:[process.env.FRONT_END_URL],
     credentials:true
 }
 
@@ -25,14 +25,9 @@ app.use(cors(corsOrigin))
 app.use("/api/v1/users",userRouter)
 app.use("/api/v1/post",postRouter)
 app.use("/api/v1/message",messagesRouter)
+dbConnect()
 
-app.get("/",function(req,res){
-    res.status(200).json({
-        message:"Backend running",
-        success:true
-    })
-})
 server.listen(PORT,()=>{
-    dbConnect()
+    
     console.log(`Server is listening at port ${PORT}`)
 })
